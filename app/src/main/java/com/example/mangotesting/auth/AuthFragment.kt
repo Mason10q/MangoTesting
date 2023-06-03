@@ -1,19 +1,16 @@
 package com.example.mangotesting.auth
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.mangotesting.MainComponent
 import com.example.mangotesting.R
 import com.example.mangotesting.databinding.FragmentAuthBinding
-import ru.tinkoff.decoro.MaskImpl
-import ru.tinkoff.decoro.slots.Slot
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher
 
 class AuthFragment : Fragment() {
@@ -34,7 +31,7 @@ class AuthFragment : Fragment() {
     ): View {
         val binding = FragmentAuthBinding.inflate(inflater)
 
-        with(MainComponent.init()){
+        with(MainComponent.init()) {
             inject(viewModel)
         }
 
@@ -44,22 +41,27 @@ class AuthFragment : Fragment() {
         val formatWatcher = MaskFormatWatcher(countryCodes[0].mask)
         formatWatcher.installOn(binding.authNumberEdit)
 
+
         binding.countryCodeSpinner.onItemSelectedListener =
-            setOnItemSelected{ _: AdapterView<*>, _: View, pos: Int, _: Long ->
+            setOnItemSelected { _: AdapterView<*>, _: View, pos: Int, _: Long ->
                 formatWatcher.setMask(countryCodes[pos].mask)
                 currentSpinPos = pos
             }
+
 
         binding.authNumberEdit.addTextChangedListener(SimpleTextWatcher {
             binding.authBtn.isEnabled = (it.length == countryCodes[currentSpinPos].mask.size)
         })
 
-        binding.authBtn.setOnClickListener {
-            val number = countryCodes[currentSpinPos].code + binding.authNumberEdit.text
-            viewModel.sendAuthCode(number)
 
-            if(viewModel.sendAuthResult.value == true){
-                Log.d("tag", number)
+        binding.authBtn.setOnClickListener {
+            val phone = countryCodes[currentSpinPos].code + binding.authNumberEdit.text
+            viewModel.sendAuthCode(phone)
+
+            if (viewModel.sendAuthResult.value == true) {
+                findNavController().navigate(R.id.codeCheckFragment, Bundle().apply {
+                    putString("PHONE", phone)
+                })
             }
         }
 

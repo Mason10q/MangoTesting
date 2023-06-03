@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".auth.CodeCheckFragment">
+
+
+    <EditText
+        android:id="@+id/sms_code_edit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        android:hint="@string/sms_code"/>
+
+
+    <Button
+        android:id="@+id/confirm_code_btn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textColor="@color/black"
+        android:text="@string/accept"
+        android:layout_margin="10dp"
+        android:enabled="false"/>
+
+</LinearLayout>
