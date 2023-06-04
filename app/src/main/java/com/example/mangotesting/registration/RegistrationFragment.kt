@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.mangotesting.MainComponent
 import com.example.mangotesting.OpenProfile
+import com.example.mangotesting.PHONE_KEY
 import com.example.mangotesting.R
 import com.example.mangotesting.databinding.FragmentRegistrationBinding
 
@@ -35,7 +36,7 @@ class RegistrationFragment : Fragment() {
             inject(viewModel)
         }
 
-        val phone = arguments?.getString("PHONE")
+        val phone = arguments?.getString(PHONE_KEY)
 
         viewModel.error.observe(viewLifecycleOwner){
             Toast.makeText(activity, it, Toast.LENGTH_LONG).show()

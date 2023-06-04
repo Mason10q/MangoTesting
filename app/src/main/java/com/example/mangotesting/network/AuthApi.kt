@@ -1,10 +1,5 @@
 package com.example.mangotesting.network
 
-import com.example.mangotesting.network.AuthReq
-import com.example.mangotesting.network.PhoneReq
-import com.example.mangotesting.network.RefreshTokenReq
-import com.example.mangotesting.network.Resource
-import com.example.mangotesting.network.UserReq
 import com.example.mangotesting.network.dtos.AvatarsDTO
 import com.example.mangotesting.network.dtos.ProfileDTO
 import com.example.mangotesting.network.responses.CheckAuthCodeResponse

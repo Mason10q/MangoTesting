@@ -70,6 +70,7 @@ dependencies {
 
     //rxJava
     implementation "io.reactivex.rxjava3:rxjava:3.1.6"
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
 
     //decoro(edittext masks
     implementation "ru.tinkoff.decoro:decoro:1.1.1"
@@ -82,5 +83,11 @@ dependencies {
 
     //viewModels
     implementation 'androidx.fragment:fragment-ktx:1.5.7'
+
+    //CircleImage
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    //Picasso
+    implementation 'com.squareup.picasso:picasso:2.8'
 
 }

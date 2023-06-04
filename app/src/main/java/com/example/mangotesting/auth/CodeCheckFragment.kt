@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mangotesting.MainComponent
 import com.example.mangotesting.OpenProfile
+import com.example.mangotesting.PHONE_KEY
 import com.example.mangotesting.R
 import com.example.mangotesting.databinding.FragmentCodeCheckBinding
 import ru.tinkoff.decoro.MaskImpl
@@ -40,7 +41,22 @@ class CodeCheckFragment : Fragment() {
             inject(viewModel)
         }
 
-        val phone = arguments?.getString("PHONE")
+        val phone = arguments?.getString(PHONE_KEY)
+
+        viewModel.error.observe(viewLifecycleOwner){
+            Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
+            binding.confirmCodeBtn.isEnabled = true
+        }
+
+        viewModel.checkAuthResult.observe(viewLifecycleOwner){
+            if (it.isUserExists) {
+                openProfile.openProfile(it.refreshToken, it.accessToken)
+            } else {
+                findNavController().navigate(R.id.registrationFragment, Bundle().apply {
+                    putString(PHONE_KEY, phone)
+                })
+            }
+        }
 
         val formatWatcher =
             MaskFormatWatcher(
@@ -56,25 +72,19 @@ class CodeCheckFragment : Fragment() {
             binding.confirmCodeBtn.isEnabled = (it.length == formatWatcher.mask.size)
         })
 
-        viewModel.error.observe(viewLifecycleOwner){
-            Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
-        }
 
         binding.confirmCodeBtn.setOnClickListener {
             viewModel.checkAuthCode(phone.toString(), binding.smsCodeEdit.text.toString())
-
-            viewModel.checkAuthResult.observe(viewLifecycleOwner){
-                if (it.isUserExists) {
-                    openProfile.openProfile(it.refreshToken, it.accessToken)
-                } else {
-                    findNavController().navigate(R.id.registrationFragment, Bundle().apply {
-                        putString("PHONE", phone)
-                    })
-                }
-            }
+            binding.confirmCodeBtn.isEnabled = false
         }
 
         return binding.root
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        viewModel.onStop()
     }
 
 }

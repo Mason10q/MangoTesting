@@ -6,3 +6,5 @@ dagger==2.13
 rxJava==3.1.6
 decoro==1.1.1
 navigationComponent==2.5.3
+circleimage==3.1.0
+picasso==2.8

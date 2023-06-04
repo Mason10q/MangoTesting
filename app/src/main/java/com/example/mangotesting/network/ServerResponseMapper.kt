@@ -1,27 +1,18 @@
 package com.example.mangotesting.network
 
-import android.util.Log
 import com.google.gson.Gson
-import okhttp3.ResponseBody
 import retrofit2.Response
 
-class Mapper<T> {
+class ServerResponseMapper<T> {
 
-    fun map(response: Response<T>): Resource<T>{
+    fun map(response: Response<T>): T {
+        val result = response.body()
 
-        try {
-            val result = response.body()
-
-            if (response.isSuccessful && result != null) {
-                return Resource.Success(result)
-            } else {
-                return Resource.Error(getErrorMessage(response))
-            }
-        } catch (e: Exception){
-            e.message?.let { Log.d("Request_fail", it) }
+        if (response.isSuccessful && result != null) {
+            return result
+        } else {
+            throw IllegalStateException(getErrorMessage(response))
         }
-
-        return Resource.Error("Error")
     }
 
     private fun getErrorMessage(response: Response<T>): String {

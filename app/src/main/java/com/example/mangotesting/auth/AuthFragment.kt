@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mangotesting.MainComponent
+import com.example.mangotesting.PHONE_KEY
 import com.example.mangotesting.R
 import com.example.mangotesting.databinding.FragmentAuthBinding
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher
@@ -35,6 +36,12 @@ class AuthFragment : Fragment() {
             inject(viewModel)
         }
 
+        viewModel.sendAuthResult.observe(viewLifecycleOwner) { phone ->
+            findNavController().navigate(R.id.codeCheckFragment, Bundle().apply {
+                putString(PHONE_KEY, phone)
+            })
+        }
+
         binding.countryCodeSpinner.adapter =
             activity?.let { CountryCodeAdapter(it, R.layout.item_country_code, countryCodes) }
 
@@ -57,19 +64,15 @@ class AuthFragment : Fragment() {
         binding.authBtn.setOnClickListener {
             val phone = countryCodes[currentSpinPos].code + binding.authNumberEdit.text
             viewModel.sendAuthCode(phone)
-
-            viewModel.sendAuthResult.observe(viewLifecycleOwner) {
-                if (it) {
-                    findNavController().navigate(R.id.codeCheckFragment, Bundle().apply {
-                        putString("PHONE", phone)
-                    })
-                }
-
-            }
         }
 
         return binding.root
     }
 
     private fun setOnItemSelected(l: SimpleSelectListener): SimpleSelectListener = l
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.onStop()
+    }
 }
