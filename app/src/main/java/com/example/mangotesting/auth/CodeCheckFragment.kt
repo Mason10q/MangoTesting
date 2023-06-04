@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mangotesting.MainComponent
@@ -54,6 +55,10 @@ class CodeCheckFragment : Fragment() {
         binding.smsCodeEdit.addTextChangedListener(SimpleTextWatcher {
             binding.confirmCodeBtn.isEnabled = (it.length == formatWatcher.mask.size)
         })
+
+        viewModel.error.observe(viewLifecycleOwner){
+            Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
+        }
 
         binding.confirmCodeBtn.setOnClickListener {
             viewModel.checkAuthCode(phone.toString(), binding.smsCodeEdit.text.toString())

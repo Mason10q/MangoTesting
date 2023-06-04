@@ -16,12 +16,12 @@ data class Detail(
     val type: String? = ""
 )
 
-data class NotFoundError(
+data class JustMessage(
     @SerializedName("message")
     val message: String? = ""
 )
 
-data class BadRequest(
+data class NotFoundError(
     @SerializedName("detail")
-    val detail: NotFoundError?
+    val detail: JustMessage?
 )

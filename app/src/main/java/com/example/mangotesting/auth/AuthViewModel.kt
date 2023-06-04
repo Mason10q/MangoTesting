@@ -26,6 +26,9 @@ class AuthViewModel: ViewModel() {
     private val _checkAuthResult = MutableLiveData<CheckAuthCodeResponse>()
     val checkAuthResult: LiveData<CheckAuthCodeResponse> = _checkAuthResult
 
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> = _error
+
     fun sendAuthCode(number: String) =
         api.sendAuthCode(PhoneReq(number))
             .subscribeOn(Schedulers.io())
@@ -33,7 +36,7 @@ class AuthViewModel: ViewModel() {
             .subscribe({
                 when(val result = Mapper<SendAuthCodeResponse>().map(it)){
                     is Resource.Success -> _sendAuthResult.postValue(it.body()?.isSuccess)
-                    is Resource.Error -> Log.d("Auth error", result.message.toString())
+                    is Resource.Error -> _error.postValue(result.message.toString())
                 }
             },{
 
@@ -46,7 +49,7 @@ class AuthViewModel: ViewModel() {
             .subscribe({
                 when(val result = Mapper<CheckAuthCodeResponse>().map(it)){
                     is Resource.Success -> _checkAuthResult.postValue(it.body())
-                    is Resource.Error -> Log.d("Auth error", result.message.toString())
+                    is Resource.Error -> _error.postValue(result.message.toString())
                 }
             },{})
 

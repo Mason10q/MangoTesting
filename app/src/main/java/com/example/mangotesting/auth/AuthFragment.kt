@@ -58,10 +58,13 @@ class AuthFragment : Fragment() {
             val phone = countryCodes[currentSpinPos].code + binding.authNumberEdit.text
             viewModel.sendAuthCode(phone)
 
-            if (viewModel.sendAuthResult.value == true) {
-                findNavController().navigate(R.id.codeCheckFragment, Bundle().apply {
-                    putString("PHONE", phone)
-                })
+            viewModel.sendAuthResult.observe(viewLifecycleOwner) {
+                if (it) {
+                    findNavController().navigate(R.id.codeCheckFragment, Bundle().apply {
+                        putString("PHONE", phone)
+                    })
+                }
+
             }
         }
 

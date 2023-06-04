@@ -29,8 +29,8 @@ class Mapper<T> {
         val error = response.errorBody()?.string().toString()
 
         return when(response.code()){
-            404 -> convertFromJson<NotFoundError>(error).message.toString()
-            400 -> convertFromJson<BadRequest>(error).detail?.message.toString()
+            404 -> convertFromJson<NotFoundError>(error).detail?.message.toString()
+            400 -> convertFromJson<NotFoundError>(error).detail?.message.toString()
             422 -> convertFromJson<ValidationError>(error).errorLogs[0].message.toString()
             else -> "Another"
         }
