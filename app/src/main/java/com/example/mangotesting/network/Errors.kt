@@ -18,5 +18,10 @@ data class Detail(
 
 data class NotFoundError(
     @SerializedName("message")
-    val message: String = ""
+    val message: String? = ""
+)
+
+data class BadRequest(
+    @SerializedName("detail")
+    val detail: NotFoundError?
 )

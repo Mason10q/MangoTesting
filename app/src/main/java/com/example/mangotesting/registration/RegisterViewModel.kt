@@ -20,6 +20,9 @@ class RegisterViewModel: ViewModel() {
     private val _registerResult = MutableLiveData<RefreshTokenResponse>()
     val registerResult: LiveData<RefreshTokenResponse> = _registerResult
 
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> = _error
+
     fun registrate(phone: String, name: String, username: String) =
         api.register(UserReq(phone, name, username))
             .subscribeOn(Schedulers.io())
@@ -27,7 +30,7 @@ class RegisterViewModel: ViewModel() {
             .subscribe({
                 when(val result = Mapper<RefreshTokenResponse>().map(it)){
                     is Resource.Success -> _registerResult.postValue(it.body())
-                    is Resource.Error -> Log.d("Auth error", result.message.toString())
+                    is Resource.Error -> _error.postValue(result.message.toString())
                 }
             }, {
 
