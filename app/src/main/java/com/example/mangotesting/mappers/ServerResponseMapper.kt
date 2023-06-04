@@ -1,5 +1,7 @@
-package com.example.mangotesting.network
+package com.example.mangotesting.mappers
 
+import com.example.mangotesting.network.NotFoundError
+import com.example.mangotesting.network.ValidationError
 import com.google.gson.Gson
 import retrofit2.Response
 

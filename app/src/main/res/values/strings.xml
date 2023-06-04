@@ -9,4 +9,9 @@
     <string name="name">Имя</string>
     <string name="username">Username</string>
     <string name="register">Зарегистрироваться</string>
+    <string name="city">Город</string>
+    <string name="birthday">Дата рождения</string>
+    <string name="sign">Знак зодиака</string>
+    <string name="description">О себе</string>
+    <string name="phone">Номер телефона</string>
 </resources>

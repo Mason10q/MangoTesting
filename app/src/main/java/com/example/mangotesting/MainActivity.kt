@@ -24,8 +24,8 @@ class MainActivity : AppCompatActivity(), OpenProfile {
     override fun openProfile(refreshToken: String, accessToken: String) {
         val editor = tokensSp.edit()
 
-        editor.putString("REFRESH_TOKEN", refreshToken)
-        editor.putString("ACCESS_TOKEN", accessToken)
+        editor.putString(REFRESH_TOKEN_KEY, refreshToken)
+        editor.putString(ACCESS_TOKEN_KEY, accessToken)
 
         editor.apply()
 

@@ -38,6 +38,8 @@ class RegistrationFragment : Fragment() {
 
         val phone = arguments?.getString(PHONE_KEY)
 
+        binding.registerPhoneText.text = phone
+
         viewModel.error.observe(viewLifecycleOwner){
             Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
         }
@@ -58,6 +60,11 @@ class RegistrationFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.onStop()
     }
 
 }

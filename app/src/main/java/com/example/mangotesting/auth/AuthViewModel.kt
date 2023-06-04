@@ -2,17 +2,14 @@ package com.example.mangotesting.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.mangotesting.BaseViewModel
 import com.example.mangotesting.network.AuthApi
 import com.example.mangotesting.network.AuthReq
-import com.example.mangotesting.network.ServerResponseMapper
+import com.example.mangotesting.mappers.ServerResponseMapper
 import com.example.mangotesting.network.PhoneReq
 import com.example.mangotesting.network.responses.CheckAuthCodeResponse
 import com.example.mangotesting.network.responses.SendAuthCodeResponse
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 

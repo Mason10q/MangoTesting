@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".profile.ProfileFragment">
 
     <LinearLayout
@@ -13,9 +14,120 @@
             android:layout_width="120dp"
             android:layout_height="120dp"/>
 
-        
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:text="@string/name"
+                    tools:ignore="NestedWeights"
+                    style="@style/profile_big_text"/>
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="NoName"
+                    style="@style/profile_big_text"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:text="Uname"
+                    tools:ignore="NestedWeights"
+                    style="@style/profile_big_text"/>
+
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="NoUserName"
+                    style="@style/profile_big_text"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow>
+            <TextView
+                android:text="@string/phone"
+                style="@style/profile_small_text"/>
+            <TextView
+                android:id="@+id/phone"
+                android:text="NoPhone"
+                style="@style/profile_small_text"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:text="@string/city"
+                style="@style/profile_small_text"/>
+            <TextView
+                android:id="@+id/city"
+                android:text="NoCity"
+                style="@style/profile_small_text"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:text="@string/birthday"
+                style="@style/profile_small_text"/>
+            <TextView
+                android:id="@+id/birthday"
+                android:text="NoDate"
+                style="@style/profile_small_text"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:text="@string/sign"
+                style="@style/profile_small_text"/>
+            <TextView
+                android:id="@+id/zodiac_sign"
+                android:text="NoSign"
+                style="@style/profile_small_text"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:text="@string/description"
+                style="@style/profile_small_text"/>
+            <TextView
+                android:id="@+id/description"
+                android:text="NoDesctiption"
+                style="@style/profile_small_text"/>
+        </TableRow>
+
+    </TableLayout>
 
 </LinearLayout>

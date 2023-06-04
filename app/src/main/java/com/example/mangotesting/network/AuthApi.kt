@@ -30,7 +30,7 @@ interface AuthApi {
     fun refreshToken(@Body refreshTokenReq: RefreshTokenReq): Single<Response<RefreshTokenResponse>>
 
     @GET("me/")
-    fun getUser(): Single<Response<ProfileDTO>>
+    fun getProfileData(): Single<Response<ProfileDTO>>
 
     @PUT("me/")
     fun updateUser(): Single<Response<AvatarsDTO>>

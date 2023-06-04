@@ -1,12 +1,10 @@
 package com.example.mangotesting.registration
 
-import android.support.annotation.MainThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.mangotesting.BaseViewModel
 import com.example.mangotesting.network.AuthApi
-import com.example.mangotesting.network.ServerResponseMapper
+import com.example.mangotesting.mappers.ServerResponseMapper
 import com.example.mangotesting.network.UserReq
 import com.example.mangotesting.network.responses.RefreshTokenResponse
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -22,7 +20,7 @@ class RegisterViewModel: BaseViewModel() {
     val registerResult: LiveData<RefreshTokenResponse?> = _registerResult
 
     fun registrate(phone: String, name: String, username: String) =
-        api.register(UserReq(phone, name, username))
+        composite.add(api.register(UserReq(phone, name, username))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .map{ ServerResponseMapper<RefreshTokenResponse>().map(it) }
@@ -33,4 +31,5 @@ class RegisterViewModel: BaseViewModel() {
                     _error.postValue(it.message)
                 }
             })
+        )
 }
