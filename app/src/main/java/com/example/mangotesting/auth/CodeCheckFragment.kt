@@ -54,7 +54,9 @@ class CodeCheckFragment : Fragment() {
             if (answer?.isUserExists == true) {
 
             } else {
-
+                findNavController().navigate(R.id.registrationFragment, Bundle().apply {
+                    putString("PHONE", phone)
+                })
             }
         }
 

@@ -5,4 +5,8 @@
     <string name="auth">Авторизоваться</string>
     <string name="accept">Подтвердить</string>
     <string name="sms_code">Код из смс</string>
+    <string name="phone_number">Номер телефона</string>
+    <string name="name">Имя</string>
+    <string name="username">Username</string>
+    <string name="register">Зарегистрироваться</string>
 </resources>
