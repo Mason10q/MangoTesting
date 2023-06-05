@@ -3,10 +3,10 @@ package com.example.mangotesting.mappers
 import com.example.mangotesting.entities.Profile
 import com.example.mangotesting.network.dtos.ProfileDTO
 
-class ProfileMapper {
+object ProfileMapper {
 
     fun map(response: ProfileDTO): Profile {
-        return with(response) {
+        return with(response.profileData) {
             Profile(name ?: "", username ?: "", phone ?: "", birthday ?: "", city ?: "")
         }
     }

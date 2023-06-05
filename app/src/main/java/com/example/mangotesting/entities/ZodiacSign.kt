@@ -9,9 +9,11 @@ object ZodiacSign{
 
     @SuppressLint("SimpleDateFormat")
     fun getZodiacSign(stringDate: String): String{
-        val date = SimpleDateFormat("yyyy-MM-dd").parse(stringDate)
-        return zodiacSign(date!!.day, date.month).toString()
-
+        if(stringDate != "") {
+            val date = SimpleDateFormat("yyyy-MM-dd").parse(stringDate)
+            return zodiacSign(date!!.day, date.month).toString()
+        }
+        return ""
     }
 
 

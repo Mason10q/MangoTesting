@@ -23,11 +23,11 @@ class AuthModule {
             val request = chain.request().newBuilder()
                 .addHeader("accept", "application/json")
                 .addHeader("Content-Type", "application/json")
-                .addHeader("Authorization", "adas-123")
                 .build()
 
             return@addInterceptor chain.proceed(request)
         }
+        .addInterceptor(AccessHeaderInterceptor)
         .addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         })

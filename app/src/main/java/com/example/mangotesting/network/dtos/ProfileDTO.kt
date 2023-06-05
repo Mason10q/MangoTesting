@@ -3,6 +3,11 @@ package com.example.mangotesting.network.dtos
 import com.google.gson.annotations.SerializedName
 
 data class ProfileDTO(
+    @SerializedName("profile_data")
+    val profileData: ProfileData
+)
+
+data class ProfileData(
     @SerializedName("name")
     val name: String? = "",
     @SerializedName("username")

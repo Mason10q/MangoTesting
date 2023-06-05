@@ -1,14 +1,16 @@
 package com.example.mangotesting.profile
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.mangotesting.MainComponent
-import com.example.mangotesting.R
 import com.example.mangotesting.databinding.FragmentProfileBinding
+import com.example.mangotesting.entities.Profile
 
 class ProfileFragment(): Fragment(){
 
@@ -25,18 +27,27 @@ class ProfileFragment(): Fragment(){
 
         viewModel.getProfileData()
 
+        viewModel.error.observe(viewLifecycleOwner){
+            Toast.makeText(requireActivity(), it, Toast.LENGTH_LONG).show()
+        }
+
         viewModel.profileData.observe(viewLifecycleOwner){
-            with(binding){
-                name.text = it.name
-                username.text = it.username
-                phone.text = it.phone
-                birthday.text = it.birthday
-                city.text = it.city
-                zodiacSign.text = it.zodiacSign
-            }
+            bindView(binding, it)
         }
 
         return binding.root
+    }
+
+
+    private fun bindView(binding: FragmentProfileBinding, item: Profile){
+        with(binding){
+            name.text = item.name
+            username.text = item.username
+            phone.text = item.phone
+            birthday.text = item.birthday
+            city.text = item.city
+            zodiacSign.text = item.zodiacSign
+        }
     }
 
 }

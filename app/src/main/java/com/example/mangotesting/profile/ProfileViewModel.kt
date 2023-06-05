@@ -1,5 +1,6 @@
 package com.example.mangotesting.profile
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.mangotesting.BaseViewModel
@@ -13,18 +14,18 @@ import javax.inject.Inject
 
 class ProfileViewModel : BaseViewModel() {
 
-    @Inject
-    lateinit var api: AuthApi
+    @Inject lateinit var api: AuthApi
 
     private val _profileData = MutableLiveData<Profile>()
     val profileData: LiveData<Profile> = _profileData
+    private val serverResponseMapper = ServerResponseMapper<ProfileDTO>()
 
     fun getProfileData() =
         composite.add(api.getProfileData()
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
-            .map { ServerResponseMapper<ProfileDTO>().map(it) }
-            .map { ProfileMapper().map(it) }
+            .map { serverResponseMapper.map(it) }
+            .map { ProfileMapper.map(it) }
             .subscribe({
                 _profileData.postValue(it)
             }, {

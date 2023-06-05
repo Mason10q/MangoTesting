@@ -1,11 +1,10 @@
 package com.example.mangotesting
 
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.example.mangotesting.auth.AuthViewModel
+import com.example.mangotesting.network.AccessHeaderInterceptor
 
 class MainActivity : AppCompatActivity(), OpenProfile {
 
@@ -28,6 +27,8 @@ class MainActivity : AppCompatActivity(), OpenProfile {
         editor.putString(ACCESS_TOKEN_KEY, accessToken)
 
         editor.apply()
+
+        AccessHeaderInterceptor.setToken(tokensSp.getString(ACCESS_TOKEN_KEY, "").toString())
 
         navController.navigate(R.id.profileFragment)
     }
