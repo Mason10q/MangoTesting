@@ -17,12 +17,13 @@ import com.example.mangotesting.databinding.FragmentProfileBinding
 import com.example.mangotesting.databinding.FragmentRedactProfileBinding
 import com.example.mangotesting.entities.Profile
 
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class RedactProfileFragment : Fragment() {
 
     private val binding by lazy { FragmentRedactProfileBinding.inflate(layoutInflater) }
     private val viewModel: ProfileViewModel by viewModels()
+    private val profile: Profile? by lazy { arguments?.getSerializable(PROFILE_KEY, Profile::class.java) }
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,12 +32,12 @@ class RedactProfileFragment : Fragment() {
 
         MainComponent.init().inject(viewModel)
 
-        val profile = arguments?.getSerializable(PROFILE_KEY, Profile::class.java)
         bindView(profile ?: Profile())
 
         binding.saveBtn.setOnClickListener {
             viewModel.updateProfile(getProfileFromView())
             findNavController().navigate(R.id.profileFragment)
+            Thread.sleep(2000)
         }
 
         return binding.root
@@ -58,7 +59,7 @@ class RedactProfileFragment : Fragment() {
                 name.text.toString(),
                 username.text.toString(),
                 phone.text.toString(),
-                "${year.text}-${mounth.text}-${day.text}",
+                if(year.text.isNotEmpty()) "${year.text}-${mounth.text}-${day.text}" else profile?.birthday.toString(),
                 city.text.toString(),
                 description.text.toString()
             )

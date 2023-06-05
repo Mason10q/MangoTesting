@@ -1,5 +1,6 @@
 package com.example.mangotesting.profile
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -21,6 +23,7 @@ class ProfileFragment: Fragment(){
     private val viewModel: ProfileViewModel by viewModels()
     private val binding by lazy{ FragmentProfileBinding.inflate(layoutInflater) }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,12 +48,12 @@ class ProfileFragment: Fragment(){
             })
         }
 
-        
 
         return binding.root
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun bindView(item: Profile){
         Log.d("tagg", item.toString())
         with(binding){
