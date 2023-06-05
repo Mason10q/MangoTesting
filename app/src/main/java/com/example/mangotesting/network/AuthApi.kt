@@ -33,7 +33,7 @@ interface AuthApi {
     fun getProfileData(): Single<Response<ProfileDTO>>
 
     @PUT("me/")
-    fun updateUser(): Single<Response<AvatarsDTO>>
+    fun updateUser(@Body updateUser: UpdateUserReq): Single<Response<AvatarsDTO>>
 
     @GET("check_jwt/")
     fun checkJwt(): Single<Response<String>>

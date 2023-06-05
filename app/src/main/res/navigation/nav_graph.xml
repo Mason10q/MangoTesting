@@ -39,5 +39,18 @@
         android:id="@+id/profileFragment"
         android:name="com.example.mangotesting.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_redactProfileFragment"
+            app:destination="@id/redactProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/redactProfileFragment"
+        android:name="com.example.mangotesting.profile.RedactProfileFragment"
+        android:label="fragment_redact_profile"
+        tools:layout="@layout/fragment_redact_profile" >
+        <action
+            android:id="@+id/action_redactProfileFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
 </navigation>

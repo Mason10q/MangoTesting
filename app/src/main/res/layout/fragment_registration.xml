@@ -38,7 +38,8 @@
             android:id="@+id/registration_name_edit"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:inputType="text"/>
 
     </LinearLayout>
 
@@ -57,7 +58,8 @@
             android:id="@+id/username_edit"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:inputType="text"/>
 
     </LinearLayout>
 

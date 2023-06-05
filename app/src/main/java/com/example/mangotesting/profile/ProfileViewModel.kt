@@ -8,7 +8,9 @@ import com.example.mangotesting.entities.Profile
 import com.example.mangotesting.mappers.ProfileMapper
 import com.example.mangotesting.network.AuthApi
 import com.example.mangotesting.mappers.ServerResponseMapper
+import com.example.mangotesting.mappers.UpdateProfileMapper
 import com.example.mangotesting.network.dtos.ProfileDTO
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -23,12 +25,22 @@ class ProfileViewModel : BaseViewModel() {
     fun getProfileData() =
         composite.add(api.getProfileData()
             .subscribeOn(Schedulers.io())
-            .observeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .map { serverResponseMapper.map(it) }
             .map { ProfileMapper.map(it) }
             .subscribe({
                 _profileData.postValue(it)
             }, {
+                _error.postValue(it.message)
+            })
+        )
+
+
+    fun updateProfile(profile: Profile) =
+        composite.add(api.updateUser(UpdateProfileMapper.map(profile))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({}, {
                 _error.postValue(it.message)
             })
         )

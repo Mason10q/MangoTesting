@@ -7,7 +7,14 @@ object ProfileMapper {
 
     fun map(response: ProfileDTO): Profile {
         return with(response.profileData) {
-            Profile(name ?: "", username ?: "", phone ?: "", birthday ?: "", city ?: "")
+            Profile(
+                name ?: "",
+                username ?: "",
+                phone ?: "",
+                birthday ?: "",
+                city ?: "",
+                status ?: ""
+            )
         }
     }
 }

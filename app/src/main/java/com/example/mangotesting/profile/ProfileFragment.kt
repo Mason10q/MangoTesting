@@ -7,21 +7,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.mangotesting.MainComponent
+import com.example.mangotesting.PROFILE_KEY
+import com.example.mangotesting.R
 import com.example.mangotesting.databinding.FragmentProfileBinding
 import com.example.mangotesting.entities.Profile
 
-class ProfileFragment(): Fragment(){
+class ProfileFragment: Fragment(){
 
     private val viewModel: ProfileViewModel by viewModels()
+    private val binding by lazy{ FragmentProfileBinding.inflate(layoutInflater) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentProfileBinding.inflate(inflater)
 
         MainComponent.init().inject(viewModel)
 
@@ -32,14 +36,23 @@ class ProfileFragment(): Fragment(){
         }
 
         viewModel.profileData.observe(viewLifecycleOwner){
-            bindView(binding, it)
+            bindView(it)
         }
+
+        binding.redactBtn.setOnClickListener{
+            findNavController().navigate(R.id.redactProfileFragment, Bundle().apply {
+                putSerializable(PROFILE_KEY, viewModel.profileData.value)
+            })
+        }
+
+        
 
         return binding.root
     }
 
 
-    private fun bindView(binding: FragmentProfileBinding, item: Profile){
+    private fun bindView(item: Profile){
+        Log.d("tagg", item.toString())
         with(binding){
             name.text = item.name
             username.text = item.username
@@ -47,7 +60,14 @@ class ProfileFragment(): Fragment(){
             birthday.text = item.birthday
             city.text = item.city
             zodiacSign.text = item.zodiacSign
+            description.text = item.description
         }
+    }
+
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.onStop()
     }
 
 }
